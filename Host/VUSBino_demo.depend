@@ -1,0 +1,57 @@
+# depslib dependency file v1.0
+1512042126 source:c:\users\pheno\documents\codeblocks\test\vusbino_demo\resource.rc
+	<windows.h>
+	<commctrl.h>
+	<richedit.h>
+	"resource.h"
+
+1512042126 c:\users\pheno\documents\codeblocks\test\vusbino_demo\resource.h
+
+1512043614 source:c:\users\pheno\documents\codeblocks\test\vusbino_demo\main.cpp
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	<time.h>
+	<iostream>
+	<process.h>
+	<stdlib.h>
+	<Windowsx.h>
+	<dialog_functions.c>
+	<usb_functions.c>
+	<imported_functions.c>
+	"resource.h"
+
+1512042818 c:\users\pheno\documents\codeblocks\test\vusbino_demo\dialog_functions.c
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+
+1512041908 c:\users\pheno\documents\codeblocks\test\vusbino_demo\usb_functions.c
+	<stdio.h>
+	<usb.h>
+	<time.h>
+	<stdbool.h>
+	"resource.h"
+
+1508435552 c:\users\pheno\documents\codeblocks\test\vusbino_demo\libusb\include\usb.h
+	<stdlib.h>
+	<windows.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1511185963 c:\users\pheno\documents\codeblocks\test\vusbino_demo\imported_functions.c
+
+1512042818 source:c:\users\pheno\documents\codeblocks\test\vusbino_demo\dialog_functions.c
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+
+1511185963 source:c:\users\pheno\documents\codeblocks\test\vusbino_demo\imported_functions.c
+
+1512041908 source:c:\users\pheno\documents\codeblocks\test\vusbino_demo\usb_functions.c
+	<stdio.h>
+	<usb.h>
+	<time.h>
+	<stdbool.h>
+	"resource.h"
+
