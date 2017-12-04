@@ -9,9 +9,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
-#include <avr/eeprom.h>
 #include <util/delay.h>
-#include <stdbool.h>
 #include "usbdrv.h"
 
 //#define F_CPU 16000000L // uncomment if not defined yet in the IDE or usbconfig.h
@@ -32,9 +30,7 @@ static uchar dataReceived = 0, dataLength = 0; // for USB_DATA_IN
 static char serialNum[16] = "DEM001";
 
 int lapse_01 = 0;
-volatile int lapse_02 = 10;
 volatile int countA = 0;
-volatile int countB = 0;
 volatile int sw_led = 0b00000000;
 volatile int operation = 0;
 
@@ -49,7 +45,6 @@ uchar usbFunctionDescriptor(usbRequest_t *rq)
    }
    return len;
 }
-
 
 static void SetSerial(char *data)
 {
@@ -145,7 +140,7 @@ int main()
 //	TCCR1B |= (1 << CS11);					// Start timer at Fcpu/8 16MHz/256=2.000.000 ticks per second.
 //	TCCR1B |= (1 << CS11) | (1 << CS10);	// Start timer at Fcpu/64 16MHz/256=250.000 ticks per second.
 	TCCR1B |= (1 << CS12);					// Start timer at Fcpu/256 16MHz/256=62500 ticks per second.
-//	TCCR1B |= (1 << CS12) | (1 << CS10);	// Start timer at Fcpu/256 16MHz/1024=15625 ticks per second.
+//	TCCR1B |= (1 << CS12) | (1 << CS10);	// Start timer at Fcpu/1024 16MHz/1024=15625 ticks per second.
 	
     while(1)
 	{
@@ -162,7 +157,6 @@ int main()
 ISR(TIMER1_COMPA_vect) //Timer 1 Compare A triggered.  We use Timer 1 for B port pins, no special reason for that.
 {
 countA++;
-countB++;
 lapse_01++;
 if(sw_led & 0b00000010) // Check if blink flag is active
 	{
