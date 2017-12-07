@@ -24,37 +24,15 @@
 
 #include "resource.h"
 
-// same as in main.c
-#define USB_LED_ON 0
-#define USB_LED_BLINK 1
+// same as in vusibino.c
+#define USB_LED_BLINK 0
+#define USB_LED_ON 1
 #define USB_LED_OFF 2
 #define USB_SEND_MESSAGE  3
 #define USB_READ_MESSAGE  4
 #define USB_SET_SERIAL 5
 
 unsigned char sw_led = 0;
-
-void GetSerial(HWND hwndDlg)
-{
-    char strInfo[256]; //Buffer of the messages
-    usb_dev_handle *handle = NULL;
-
-    handle = usbOpenDevice(0x16C0, "chafalladas.com", 0x05DC, "VUSiBino");
-    if(handle == NULL)
-    {
-        SetDlgItemText(hwndDlg, ID_STATUS1, "Could not find USB device!\n"); //(ID_STATUS1);
-        return;
-    }
-    else
-    {
-        SetDlgItemText(hwndDlg, ID_STATUS1, "Found 0x16C0 - chafalladas.com - 0x05DC - VUSiBino"); //(ID_STATUS1);
-        SetDlgItemText(hwndDlg, ID_DEVICE, "Device: 0x16C0 - chafalladas.com - 0x05DC - VUSiBino"); //(ID_STATUS1);
-        sprintf(strInfo, "Serial number: %s", usbSerial); //Format the log line
-        SetDlgItemText(hwndDlg, ID_SERIAL, strInfo); //(ID_STATUS1);
-        usb_close(handle);
-    }
-    return;
-}
 
 
 //Open dialogs
