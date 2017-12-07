@@ -60,18 +60,16 @@ static void SetSerial(char *data)
 // this gets called when custom control message is received
 USB_PUBLIC uchar usbFunctionSetup(uchar data[8]) {
 	usbRequest_t *rq = (void *)data; // cast data to correct type
-	operation=0;	
+	operation=0;
+	sw_led = sw_led & 0b11111101;
 	switch(rq->bRequest) { // custom command is in the bRequest field
-    case USB_LED_ON: //
-		sw_led = sw_led & 0b11111101;
-		DDRB = DDRB | 0b00100000; // PB1 as output
-		PORTB = PORTB | 0b00100000; //turn LED on	
-		return 0;
 	case USB_LED_BLINK: //
 		sw_led = sw_led | 0b00000010;
+    case USB_LED_ON: //
+		DDRB = DDRB | 0b00100000; // PB5 as output
+		PORTB = PORTB | 0b00100000; //turn LED on	
 		return 0;	
 	case USB_LED_OFF: // Turn off the led
-		sw_led = sw_led & 0b11111101;
 		PORTB &= ~(1<<PB5); //  Turn off led
 		return 0;
 	case USB_READ_MESSAGE: //Read message from buffer to PC
