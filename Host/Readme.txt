@@ -1,6 +1,6 @@
 This is the Readme file for VUSiBino Demo and related code.
 /**
- * Project: VUSiBino demo http://chafalladas.com/vusibino-2
+ * Project: VUSiBino demo https://chafalladas.com/vusibino-2
  * Author: Alfonso Abelenda Escudero alfonso@abelenda.es
  * Inspired by V-USB example code by Christian Starkjohann and v-usb tutorials from http://codeandlife.com
  * Hardware based on tinyUSBboard http://matrixstorm.com/avr/tinyusbboard/ and paperduino perfboard from http://txapuzas.blogspot.com.es
