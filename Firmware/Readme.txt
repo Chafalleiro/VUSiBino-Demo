@@ -14,7 +14,7 @@ This package consists of the device side USB driver firmware, and host code:
 
   Readme.txt .............. The file you are currently reading.
   usbdrv .................. v-usb libraries.
-  vusibini.c .............. Main program.
+  vusibino.c .............. Main program.
 
 OBJECTIVE.
 ==========
