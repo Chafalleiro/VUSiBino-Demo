@@ -18,7 +18,7 @@
 //Some control functions.
 #include <dialog_functions.c>
 #include <usb_functions.c>
-#include <imported_functions.c>
+
 
 // this is libusb, see http://libusb.sourceforge.net/
 
@@ -43,7 +43,7 @@ HINSTANCE hInst;
 BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     int wmEvent; //Identifiers of control and eventes related with them
-    char buffer[256], strInfo[256]; //Buffer of the messages
+    char strInfo[256]; //Buffer of the messages
 
     time_t now = time(0);       //Get time of the event
     struct tm  tstruct;
@@ -110,14 +110,14 @@ BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     GetSerial(hwndDlg);
                 }
                 return TRUE;
-            case ID_SEND: //Set new serial number
+            case ID_SEND: //Set buffer text
                 {
                     char p_message[16];
                     Edit_GetLine(GetDlgItem(hwndDlg, ID_EDIT),0,p_message,16);
                     sendBytes(hwndDlg, ID_STATUS1, ID_STATUS1, USB_SEND_MESSAGE, "Sent message", p_message);
                 }
                 return TRUE;
-            case ID_RECEIVE: //Set new serial number
+            case ID_RECEIVE: //Get buffer text
                 {
                     sendCommands(hwndDlg, ID_STATUS1, ID_RETURN, USB_READ_MESSAGE, "Read message", "GETBUF", true);
                 }

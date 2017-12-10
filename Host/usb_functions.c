@@ -3,9 +3,8 @@
 #include <time.h>
 #include <stdbool.h>
 
-
-
 #include "resource.h"
+
 HWND p_hwndDlg;
 char usbSerial[256];
 
@@ -100,6 +99,7 @@ static usb_dev_handle * usbOpenDevice(int vendor, const char *vendorName, int pr
                 usb_close(handle);
                 continue;
             }
+            // get product serial
             if(dev->descriptor.iSerialNumber > 0)
             {
                usbGetDescriptorString(handle, dev->descriptor.iSerialNumber,0x0409, usbSerial, sizeof(usbSerial));
@@ -122,13 +122,13 @@ int sendBytes(HWND hwndDlg, int statusline, int statuslabel, int myCommand, cons
     handle = usbOpenDevice(0x16C0, "chafalladas.com", 0x05DC, "VUSiBino");
     if(handle == NULL)
     {
-        SetDlgItemText(hwndDlg, ID_STATUS1, "Could not find USB device!\n"); //(ID_STATUS1);
+        SetDlgItemText(hwndDlg, ID_STATUS1, "Could not find USB device!\n");
         return 0;
     }
     SetDlgItemText(hwndDlg, statusline, statusMsg); //Notify action in status bar;
     usb_control_msg(handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT, myCommand, 0, 0, bytesSent, strlen(bytesSent)+1, 5000); //Send string to the vusibino
     usb_close(handle);
-    SetDlgItemText(hwndDlg, ID_SERIAL, usbSerial); //(ID_STATUS1);
+    SetDlgItemText(hwndDlg, ID_SERIAL, usbSerial);
     return 0;
 }
 
@@ -142,15 +142,15 @@ int sendCommands(HWND hwndDlg, int statusline, int statuslabel, int myCommand, c
 
     if(handle == NULL)
     {
-        SetDlgItemText(hwndDlg, ID_STATUS1, "Could not find USB device!\n"); //(ID_STATUS1);
+        SetDlgItemText(hwndDlg, ID_STATUS1, "Could not find USB device!\n");
         return 0;
     }
     SetDlgItemText(hwndDlg, statusline, statusMsg); //Notify action in status bar;
     usb_control_msg(handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN, myCommand, 0, 0, (char *)buffer, sizeof(buffer), 5000); //Send command to the vusibino
     usb_close(handle);
-    if (labelMsg=="GETBUF")
+    if (labelMsg == "GETBUF")
     {
-        SetDlgItemText(hwndDlg, statuslabel, buffer); //Notify action in a label
+        SetDlgItemText(hwndDlg, statuslabel, buffer); //Notify buffer contents in a label
     }
     return 0;
 }
@@ -163,15 +163,15 @@ void GetSerial(HWND hwndDlg)
     handle = usbOpenDevice(0x16C0, "chafalladas.com", 0x05DC, "VUSiBino");
     if(handle == NULL)
     {
-        SetDlgItemText(hwndDlg, ID_STATUS1, "Could not find USB device!\n"); //(ID_STATUS1);
+        SetDlgItemText(hwndDlg, ID_STATUS1, "Could not find USB device!\n");
         return;
     }
     else
     {
-        SetDlgItemText(hwndDlg, ID_STATUS1, "Found 0x16C0 - chafalladas.com - 0x05DC - VUSiBino"); //(ID_STATUS1);
-        SetDlgItemText(hwndDlg, ID_DEVICE, "Device: 0x16C0 - chafalladas.com - 0x05DC - VUSiBino"); //(ID_STATUS1);
+        SetDlgItemText(hwndDlg, ID_STATUS1, "Found 0x16C0 - chafalladas.com - 0x05DC - VUSiBino");
+        SetDlgItemText(hwndDlg, ID_DEVICE, "Device: 0x16C0 - chafalladas.com - 0x05DC - VUSiBino");
         sprintf(strInfo, "Serial number: %s", usbSerial); //Format the log line
-        SetDlgItemText(hwndDlg, ID_SERIAL, strInfo); //(ID_STATUS1);
+        SetDlgItemText(hwndDlg, ID_SERIAL, strInfo);
         usb_close(handle);
     }
     return;

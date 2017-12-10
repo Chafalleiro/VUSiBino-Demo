@@ -18,8 +18,8 @@
 
 static int  serialNumberDescriptor[SERIAL_NUMBER_LENGTH + 1];
 
-#define USB_LED_ON 0
-#define USB_LED_BLINK 1
+#define USB_LED_BLINK 0
+#define USB_LED_ON 1
 #define USB_LED_OFF 2
 #define USB_SEND_MESSAGE  3
 #define USB_READ_MESSAGE  4
@@ -61,15 +61,16 @@ static void SetSerial(char *data)
 USB_PUBLIC uchar usbFunctionSetup(uchar data[8]) {
 	usbRequest_t *rq = (void *)data; // cast data to correct type
 	operation=0;
-	sw_led = sw_led & 0b11111101;
 	switch(rq->bRequest) { // custom command is in the bRequest field
 	case USB_LED_BLINK: //
 		sw_led = sw_led | 0b00000010;
+		return 0;
     case USB_LED_ON: //
-		DDRB = DDRB | 0b00100000; // PB5 as output
+		sw_led = sw_led & 0b11111101;	
 		PORTB = PORTB | 0b00100000; //turn LED on	
-		return 0;	
+		return 0;
 	case USB_LED_OFF: // Turn off the led
+		sw_led = sw_led & 0b11111101;
 		PORTB &= ~(1<<PB5); //  Turn off led
 		return 0;
 	case USB_READ_MESSAGE: //Read message from buffer to PC
